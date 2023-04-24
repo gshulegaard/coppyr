@@ -2,7 +2,7 @@
 Coppyr
 ======
 
-Coppyr (Copp-***er***) is a collecton of useful Python boilerplate that I find
+Coppyr (Copp-**er**) is a collecton of useful Python boilerplate that I find
 myself reusing frequently between projects.
 
 - subp_
