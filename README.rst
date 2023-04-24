@@ -74,7 +74,6 @@ singleton
 .. _Namespace:
 
 ``singleton.Namespace``
-
   Simple Singleton object that stores KV pairs.
 
   ::
