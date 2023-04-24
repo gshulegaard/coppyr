@@ -7,8 +7,8 @@ myself reusing frequently between projects.
 
 - subp_
 - singleton_
-  - Singleton_
-  - Namespace_
+   - Singleton_
+   - Namespace_
 - Context_
 - lazyproperty_
 - CoppyrError_
