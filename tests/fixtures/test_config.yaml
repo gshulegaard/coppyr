@@ -1,0 +1,14 @@
+section_1:
+  val1: foo
+  val2: bar
+  val3:
+    - foo
+    - bar
+    - baz
+
+section_2: basic
+
+section_3:
+  - baz
+  - bar
+  - foo
