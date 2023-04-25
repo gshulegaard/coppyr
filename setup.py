@@ -4,14 +4,14 @@ from setuptools import find_packages, setup
 
 from coppyr import (__title__, __summary__, __url__, __version__, __author__,
                     __email__, __license__)
-from coppyr.package import get_readme, UploadCommand, parse_requirements
+from coppyr import package as pkg
 
 
 setup(
     name=__title__,
     version=__version__,
     description=__summary__,
-    long_description=get_readme("README.rst"),
+    long_description=pkg.get_readme("README.rst"),
     long_description_content_type="text/x-rst; charset=UTF-8",
     author=__author__,
     author_email=__email__,
@@ -26,7 +26,13 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: Implementation :: CPython",
     ],
-    cmdclass={"upload": UploadCommand},
-    install_requires=parse_requirements("requirements.txt"),
+    cmdclass={"upload": pkg.UploadCommand},
+    install_requires=[],
+    extras_require=pkg.parse_extras(
+        config="requirements-config.txt",
+        daemon="requirements-daemon.txt",
+        dev="requirements-dev.txt",
+        pkg="requirements-pkg.txt"
+    ),
     include_package_data=True  # Read MANIFEST.in
 )

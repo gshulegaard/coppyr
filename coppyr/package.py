@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 import os
 import io
+import itertools
 import shutil
 import sys
 
-from typing import List
+from typing import List, Dict
 
 from setuptools import Command
-from pip.req import parse_requirements as pip_parse_requirements
+from pip._internal.req import parse_requirements as pip_parse_requirements
 
 
 def get_readme(fname="README.md", path=os.getcwd()):
@@ -66,3 +67,28 @@ def parse_requirements(fpath: str) -> List[str]:
             requirements.append(str(req.requirement))
 
     return requirements
+
+
+def parse_extras(**kwargs: str) -> Dict[str, List[str]]:
+    """
+    Parse a key-value pairing of extras keys and file paths and return a dict
+    which can be passed to setup.py as "extras_require".
+
+    This logic will automatically include an "all" extras argument which will
+    include all extras parsed by this func.  It will exclude the "dev" key from
+    this "all" tag.
+
+    https://setuptools.pypa.io/en/latest/userguide/dependency_management.html#optional-dependencies
+    """
+    extras_dict = {
+        k: parse_requirements(v)
+        for k, v in kwargs.items()
+    }
+
+    extras_dict["all"] = list(
+        itertools.chain(
+            *[v for k, v in extras_dict.items() if k != "dev"]
+        )
+    )
+
+    return extras_dict
