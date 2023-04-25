@@ -25,8 +25,8 @@ help:
 	@echo ""
 
 clean:
-	@rm -rf 'dist/*'
-	@rm -rf 'build/*'
+	@rm -rf dist/*
+	@rm -rf build/*
 	@find . -path '*/.*' -prune -o -name '__pycache__' -exec rm -fr {} +
 	@find . -path '*/.*' -prune -o -name '*.egg-info' -exec rm -fr {} +
 	@find . -path '*/.*' -prune -o -name '*.py[co]' -exec rm -fr {} +
@@ -55,3 +55,9 @@ test-rebuild: clean
 
 test-env: clean
 	python3 -m tox -e ${ENV} -- ${TESTS} -n ${N}
+
+build: clean
+	@python3 -m build
+
+upload: build
+	@twine upload dist/*

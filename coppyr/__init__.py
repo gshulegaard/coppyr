@@ -10,7 +10,7 @@ __title__ = "coppyr"
 __summary__ = "A collection of boilerplate for Python applications."
 __url__ = "https://github.com/gshulegaard/coppyr"
 
-__version__ = "0.9.0"
+__version__ = "0.9.1"
 
 __author__ = "Grant Hulegaard"
 __email__ = "loki.labrys@gmail.com"

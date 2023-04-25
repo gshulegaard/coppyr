@@ -29,10 +29,10 @@ setup(
     cmdclass={"upload": pkg.UploadCommand},
     install_requires=[],
     extras_require=pkg.parse_extras(
-        config="requirements-config.txt",
-        daemon="requirements-daemon.txt",
-        dev="requirements-dev.txt",
-        pkg="requirements-pkg.txt"
+        config="/opt/coppyr/requirements-config.txt",
+        daemon="/opt/coppyr/requirements-daemon.txt",
+        dev="/opt/coppyr/requirements-dev.txt",
+        pkg="/opt/coppyr/requirements-pkg.txt"
     ),
     include_package_data=True  # Read MANIFEST.in
 )
