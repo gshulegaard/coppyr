@@ -1,4 +1,4 @@
-.PHONY: help clean test test-rebuild test-env
+.PHONY: help clean docker-rum docker-build docker test test-rebuild test-env
 
 TESTS = "tests/"
 N = 1
@@ -34,6 +34,15 @@ clean:
 	@find . -path '*/.*' -prune -o -name '*.so' -exec rm -fr {} +
 	@find . -path '*/.*' -prune -o -name '*.c' -exec rm -fr {} +
 	@find . -path '*/.*' -prune -o -name '*~' -exec rm -fr {} +
+
+docker-rm:
+	@cd docker && docker-compose -f test.compose.yaml rm -s -v -f;
+
+docker-build:
+	@cd docker && docker-compose -f test.compose.yaml build --no-cache;
+
+docker:
+	@cd docker && docker-compose -f test.compose.yaml run test;
 
 test: clean
 	python3 -m tox --skip-missing-interpreters -- ${TESTS} -n ${N}
