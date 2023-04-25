@@ -9,13 +9,13 @@ from tests.base import BaseTestCase
 
 class ContextTestCase(BaseTestCase):
     def test_basic(self):
-        context = Context()
+        context = Context(reinitialize=True)
 
         # check variables
         assert context.app_name == "piston"
         assert context.pid is not None
         assert context.ids is not None
-        assert context.action_id == f"{context.pid}_100003"
+        assert context.action_id == f"{context.pid}_100000"
         assert context.action_stamp is not None
         assert context.logging_keys == [
             "action_id",

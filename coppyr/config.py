@@ -2,17 +2,17 @@
 import yaml
 
 from coppyr.collections import DotDict
-from coppyr.error import PistonError
+from coppyr.error import CoppyrError
 
 
 # errors
 
 
-class PistonConfigIOError(PistonError):
+class CoppyrConfigIOError(CoppyrError):
     description = "Error opening the config file."
 
 
-class PistonConfigYAMLError(PistonError):
+class CoppyrConfigYAMLError(CoppyrError):
     description = "Couldn't load YAML."
 
 
@@ -26,7 +26,7 @@ class YAMLConfig(DotDict):
             Path to the YAML file to load.  This can be absolute or relative.
         """
         if file_path is None:
-            raise PistonConfigIOError(
+            raise CoppyrConfigIOError(
                 "File path not specified."
             )
 
@@ -34,12 +34,12 @@ class YAMLConfig(DotDict):
             with open(file_path, "r") as f:
                 raw = yaml.load(f, Loader=yaml.CLoader)
         except IOError as e:
-            raise PistonConfigIOError(
+            raise CoppyrConfigIOError(
                 f"Failed to load file path \"{file_path}\".",
                 caught=e
             )
         except Exception as e:
-            raise PistonConfigYAMLError(caught=e)
+            raise CoppyrConfigYAMLError(caught=e)
 
         # Now load parsed yaml values into object attributes.
         super().__init__(**raw)
