@@ -33,3 +33,7 @@ class DiffTestCase(BaseTestCase):
         dog = Animal("dog", "woof", ["foo", "bar"])
         cat = Animal("cat", "meow", ["foo", "fib", "bar", "baz"])
         assert types.diff(dog, cat) == types.diff(cat, dog, invert=True)
+
+    def test_equivalent(self):
+        dog = Animal("dog", "woof", ["foo", "bar"])
+        assert types.diff(dog, dog) == {}

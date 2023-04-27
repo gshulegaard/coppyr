@@ -66,7 +66,7 @@ def diff(
     right_obj: Any,
     attrs: Optional[Iterable[str]]=None,
     invert: bool=False
-) -> Dict[str, Any]:
+) -> Dict[str, Tuple[Any, Any]]:
     """
     Diff two objects and get a diff structure back which shows left vs. right
     changes.  From this object you can see what things are different, what
