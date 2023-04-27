@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 
-from coppyr.subp import call, CoppyrSubpError
+from coppyr.process import subp
 from coppyr.testing import expect_exception
 
 from tests.base import BaseTestCase, log
@@ -13,16 +13,16 @@ here = os.path.abspath(os.path.dirname(__file__))
 class SubpTestCase(BaseTestCase):
     def test_subp_basic(self):
         # check a basic successful case
-        retcode, out, err = call(f"ls {here}")
+        retcode, out, err = subp.call(f"ls {here}")
         assert retcode == 0
-        for fname in ("__init__.py", "subp.py", "lazyproperty.py"):
+        for fname in ("__init__.py", "subp.py"):
             assert fname in out
         assert err == [""]
 
         # test successful case passing log object
-        retcode, out, err = call(f"ls {here}", log=log)
+        retcode, out, err = subp.call(f"ls {here}", log=log)
         assert retcode == 0
-        for fname in ("__init__.py", "subp.py", "lazyproperty.py"):
+        for fname in ("__init__.py", "subp.py"):
             assert fname in out
         assert err == [""]
         # since we are a little abstracted away from where the log file is, we
@@ -30,11 +30,11 @@ class SubpTestCase(BaseTestCase):
         # TODO: Actually check the log file for the log record.
 
         # check a non-existent directory
-        with expect_exception(CoppyrSubpError):
-            call(f"ls /foobar/baz")
+        with expect_exception(subp.CoppyrSubpError):
+            subp.call(f"ls /foobar/baz")
 
         # check a non-existent directory without check specified
-        retcode, out, err = call(f"ls /foobar/baz", check=False)
+        retcode, out, err = subp.call(f"ls /foobar/baz", check=False)
         assert retcode == 2
         assert out == [""]
         assert err == [

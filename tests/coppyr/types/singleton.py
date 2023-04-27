@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from coppyr.singleton import Singleton, Namespace
+from coppyr.types import Singleton, Namespace
 
 from tests.base import BaseTestCase
 

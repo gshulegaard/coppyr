@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from coppyr import lazyproperty
+from coppyr.types import lazyproperty
 
 from tests.base import BaseTestCase
 

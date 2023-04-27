@@ -15,6 +15,7 @@ DAEMON_REQUIREMENTS = [
 ]
 
 DEV_REQUIREMENTS = [
+    "build",
     "pytest",
     "pytest-xdist",
     "semver",

@@ -6,9 +6,8 @@ import time
 
 from typing import Optional
 
-from coppyr.lazyproperty import lazyproperty
+from coppyr.types import lazyproperty, Singleton, Namespace
 from coppyr.collections import cycle, DotDict
-from coppyr.singleton import Singleton, Namespace
 
 
 # TODO: These sys variables should really be applied elsewhere.

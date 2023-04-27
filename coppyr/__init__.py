@@ -3,7 +3,6 @@ import os
 
 from .context import Context
 from .error import CoppyrError
-from .lazyproperty import lazyproperty
 
 
 __title__ = "coppyr"
