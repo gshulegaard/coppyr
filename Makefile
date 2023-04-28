@@ -1,4 +1,4 @@
-.PHONY: help clean docker-rm docker-build docker test test-rebuild test-env build upload
+.PHONY: help venv clean docker-rm docker-build docker test test-rebuild test-env build upload
 
 TESTS = "tests/"
 N = 1
@@ -23,6 +23,10 @@ help:
 	@echo ""
 	@echo "  \$$ make N=4 test"
 	@echo ""
+
+venv:
+	@rm -rf venv
+	@python3 -m venv venv/coppyr
 
 clean:
 	@rm -rf dist/*
