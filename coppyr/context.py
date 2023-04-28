@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-import binascii
 import os
 import sys
 import time
@@ -89,15 +88,30 @@ class Context(Singleton):
 
     @lazyproperty
     def ident(self):
+        import binascii
         random_hex = binascii.b2a_hex(os.urandom(4)).decode()
         return random_hex
+
+    @lazyproperty
+    def uuid(self):
+        import uuid
+        return uuid.uuid4()
+
+    @lazyproperty
+    def host_id(self):
+        import uuid
+        import platform
+
+        return uuid.uuid5(
+            uuid.NAMESPACE_DNS, platform.node() + str(uuid.getnode())
+        ).hex
 
     @lazyproperty
     def cwd(self):
         return os.getcwd()
 
     def inc_action_id(self):
-        self.action_id = f"{self.pid}_{next(self.ids)}"  # increment action_id
+        self.action_id = f"{self.ident}_{next(self.ids)}"  # increment action_id
         self.action_stamp = time.time()  # reset start time for new action
 
     @property

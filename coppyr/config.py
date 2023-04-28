@@ -41,6 +41,8 @@ class YAMLConfig(DotDict):
         except Exception as e:
             raise CoppyrConfigYAMLError(caught=e)
 
+        self.__file_path__ = file_path
+
         # Now load parsed yaml values into object attributes.
         super().__init__(**raw)
 
