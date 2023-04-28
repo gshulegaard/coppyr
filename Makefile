@@ -1,4 +1,4 @@
-.PHONY: help clean docker-rm docker-build docker test test-rebuild test-env
+.PHONY: help clean docker-rm docker-build docker test test-rebuild test-env build upload
 
 TESTS = "tests/"
 N = 1
