@@ -42,7 +42,7 @@ docker-build: docker-rm
 	@cd docker && docker-compose -f dev.compose.yaml build --no-cache;
 
 docker:
-	@cd docker && docker-compose -f dev.compose.yaml run dev;
+	@cd docker && docker-compose -f dev.compose.yaml run coppyr-dev;
 
 test: clean
 	python3 -m tox --skip-missing-interpreters -- ${TESTS} -n ${N}

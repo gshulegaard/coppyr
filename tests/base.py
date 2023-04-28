@@ -6,7 +6,7 @@ from coppyr import logger
 
 
 # init context
-context = Context(app_name="piston-testing")
+context = Context(app_name="coppyr-testing")
 
 
 # setup logging
