@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 import subprocess
+from logging import Logger
+
+from typing import ByteString, List, Optional, Tuple, TextIO, Union
 
 from coppyr.error import CoppyrError
 
@@ -8,8 +11,20 @@ class CoppyrSubpError(CoppyrError):
     description = "An error occurred durring subp.call"
 
 
-def call(command, check=True, raw=False, fg=False, input=None,
-         stdin=None, stdout=None, stderr=None, log=None):
+def call(
+    command: str,
+    check: bool=True,
+    raw: bool=False,
+    fg: bool=False,
+    input: Optional[str]=None,
+    stdin: Optional[TextIO]=None,
+    stdout: Optional[TextIO]=None,
+    stderr: Optional[TextIO]=None,
+    log: Optional[Logger]=None
+) -> Union[
+    Tuple[int, List[str], List[str]],
+    Tuple[int, ByteString, ByteString]
+]:
     """
     Calls subprocess.run with the pass command.
 
@@ -39,15 +54,15 @@ def call(command, check=True, raw=False, fg=False, input=None,
     :return: retcode int, stdout [], stderr []
     """
     subprocess_params = dict(
-        shell=True,
+        shell=True
     )
 
     if not fg:
-        stdin = subprocess.PIPE if stdin is None else stdin
-        stdout = subprocess.PIPE if stdout is None else stdout
-        stderr = subprocess.PIPE if stderr is None else stderr
+        stdin = subprocess.PIPE if stdin is None else stdin  # type: ignore
+        stdout = subprocess.PIPE if stdout is None else stdout  # type: ignore
+        stderr = subprocess.PIPE if stderr is None else stderr  # type: ignore
 
-        subprocess_params.update(dict(
+        subprocess_params.update(dict(  # type: ignore
             stdin=stdin,
             stdout=stdout,
             stderr=stderr
@@ -56,10 +71,10 @@ def call(command, check=True, raw=False, fg=False, input=None,
     if input:
         if 'stdin' in subprocess_params:
             del subprocess_params['stdin']
-        subprocess_params['input'] = input
+        subprocess_params['input'] = input  # type: ignore
 
     if log is not None:
-        log.debug(f"piston.subp.call: Calling \"{command}\"")
+        log.debug(f"coppyr.subp.call: Calling \"{command}\"")
 
     process = subprocess.run(command, **subprocess_params)
 
@@ -76,7 +91,7 @@ def call(command, check=True, raw=False, fg=False, input=None,
                 payload=dict(returncode=process.returncode)
             )
         elif fg:
-            return process.returncode, None, None
+            return process.returncode, [], []
         elif raw:
             return process.returncode, process.stdout, process.stderr
         else:
@@ -86,9 +101,9 @@ def call(command, check=True, raw=False, fg=False, input=None,
 
             if log is not None:
                 if out:
-                    log.debug("piston.subp.call: stdout:\n" + "\n".join(out) + "\n")
+                    log.debug("coppyr.subp.call: stdout:\n" + "\n".join(out) + "\n")
                 if process.stderr:
-                    log.error("piston.subp.call: stderr:\n" + "\n".join(err) + "\n")
+                    log.error("coppyr.subp.call: stderr:\n" + "\n".join(err) + "\n")
 
             return process.returncode, out, err
     except CoppyrSubpError:
@@ -96,7 +111,7 @@ def call(command, check=True, raw=False, fg=False, input=None,
     except Exception as e:
         if log is not None:
             log.error(
-                f"piston.subp.call: Caught \"{e.__class__.__name__}\" during "
+                f"coppyr.subp.call: Caught \"{e.__class__.__name__}\" during "
                 "subp.call."
             )
 
