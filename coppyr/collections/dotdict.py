@@ -11,9 +11,15 @@ class DotDict(dict):
                 self[k] = DotDict(**v)
 
     def __getattr__(self, k):
+        if k.startswith("__"):
+            return super().__getattr__(k)
+
         return super().get(k)
 
     def __setattr__(self, k, v):
+        if k.startswith("__"):
+            return super().__setattr__(k, v)
+
         super().__setitem__(k, v)
 
     def __delattr__(self, k):

@@ -8,7 +8,8 @@ from coppyr import package as pkg
 
 
 CONFIG_REQUIREMENTS = [
-    "PyYAML==6.0"
+    "PyYAML",
+    "toml"
 ]
 
 DAEMON_REQUIREMENTS = [
