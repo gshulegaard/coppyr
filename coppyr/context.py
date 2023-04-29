@@ -53,7 +53,7 @@ class Context(Singleton):
             return
 
         # constant vars
-        self.app_name = app_name if app_name is not None else "piston"
+        self.app_name = app_name if app_name is not None else "coppyr"
         self.pid = os.getpid()
         self.config_path = config_path
 
