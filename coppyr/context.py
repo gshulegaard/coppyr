@@ -37,7 +37,7 @@ class TimeKeeper:
         return profile
 
 
-class Context(Singleton):
+class BaseContext:
     """
     A simple interpreter local context that can be used as a shared memory
     space without relying on "global" or careful variable passing.
@@ -166,3 +166,7 @@ class Context(Singleton):
     @lazyproperty
     def timer(self):
         return TimeKeeper()
+
+
+class Context(BaseContext, Singleton):
+    pass

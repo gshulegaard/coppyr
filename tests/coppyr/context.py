@@ -12,7 +12,7 @@ class ContextTestCase(BaseTestCase):
         context = Context(reinitialize=True)
 
         # check variables
-        assert context.app_name == "piston"
+        assert context.app_name == "coppyr"
         assert context.pid is not None
         assert context.ids is not None
         assert context.action_id == f"{context.pid}_100000"
