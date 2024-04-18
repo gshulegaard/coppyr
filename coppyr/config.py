@@ -13,8 +13,12 @@ class CoppyrConfigIOError(CoppyrError):
     description = "Error opening the config file."
 
 
-class CoppyrConfigYAMLError(CoppyrError):
+class CoppyrConfigYamlError(CoppyrError):
     description = "Couldn't load YAML."
+
+
+class CoppyrConfigTomlError(CoppyrError):
+    description = "Couldn't load TOML."
 
 
 # objects
@@ -36,12 +40,13 @@ class AbstractConfig(DotDict):
         # Load KV arguments into DotDict
         super().__init__(**self.load(file_path))
 
-    @abc.abstractstaticmethod
+    @staticmethod
+    @abc.abstractmethod
     def load(file_path: str) -> Dict:
         return {}
 
 
-class YAMLConfig(AbstractConfig):
+class YamlConfig(AbstractConfig):
     @staticmethod
     def load(file_path: str):
         import yaml
@@ -55,12 +60,12 @@ class YAMLConfig(AbstractConfig):
                 caught=e
             )
         except Exception as e:
-            raise CoppyrConfigYAMLError(caught=e)
+            raise CoppyrConfigYamlError(caught=e)
 
         return raw
 
 
-class TOMLConfig(AbstractConfig):
+class TomlConfig(AbstractConfig):
     @staticmethod
     def load(file_path: str):
         import toml
@@ -73,7 +78,7 @@ class TOMLConfig(AbstractConfig):
                 caught=e
             )
         except Exception as e:
-            raise CoppyrConfigYAMLError(caught=e)
+            raise CoppyrConfigTomlError(caught=e)
 
         return raw
 

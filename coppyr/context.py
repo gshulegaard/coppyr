@@ -135,8 +135,13 @@ class BaseContext:
     @lazyproperty
     def config(self):
         if self.config_path:
-            from coppyr.config import YAMLConfig
-            return YAMLConfig(self.config_path)
+            import coppyr.config as cfg
+
+            # Try to load config as toml, if that fails to parse, try to load as yaml.
+            try:
+                return cfg.TomlConfig(self.config_path)
+            except cfg.CoppyrConfigTomlError:
+                return cfg.YamlConfig(self.config_path)
         else:
             return DotDict()
 

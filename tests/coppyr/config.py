@@ -5,21 +5,21 @@ import os
 import toml
 
 from coppyr.collections import DotDict
-from coppyr.config import YAMLConfig, TOMLConfig
+from coppyr.config import YamlConfig, TomlConfig
 
 from tests import here
 from tests.base import BaseTestCase
 
 
-class YAMLConfigTestCase(BaseTestCase):
+class YamlConfigTestCase(BaseTestCase):
     def setup_method(self, method):
         super().setup_method(method)
         self.fpath = os.path.join(here, "fixtures", "test_config.yaml")
 
     def test_yaml_basic(self):
-        config = YAMLConfig(self.fpath)
+        config = YamlConfig(self.fpath)
         assert config is not None
-        assert isinstance(config, YAMLConfig)
+        assert isinstance(config, YamlConfig)
 
         assert list(config.keys()) == ["section_1", "section_2", "section_3"]
         assert list(config.items()) == [
@@ -46,15 +46,15 @@ class YAMLConfigTestCase(BaseTestCase):
         assert config.section_4 is None
 
 
-class TOMLConfigTestCase(BaseTestCase):
+class TomlConfigTestCase(BaseTestCase):
     def setup_method(self, method):
         super().setup_method(method)
         self.fpath = os.path.join(here, "fixtures", "test_config.toml")
 
     def test_toml_basic(self):
-        config = TOMLConfig(self.fpath)
+        config = TomlConfig(self.fpath)
         assert config is not None
-        assert isinstance(config, TOMLConfig)
+        assert isinstance(config, TomlConfig)
 
         assert list(config.keys()) == ["title", "owner", "database", "servers", "clients"]
         assert list(config.items()) == [

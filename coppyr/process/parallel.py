@@ -3,7 +3,7 @@ import queue as q
 import sys
 import uuid
 
-from coppyr.singleton import Singleton
+from coppyr.types.singleton import Singleton
 
 
 class Worker(object):
